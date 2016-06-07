@@ -1,0 +1,248 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+		<script type="text/javascript" src="lib/jquery.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui.custom.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+
+		<link href='http://fonts.googleapis.com/css?family=Nova+Round|Economica' rel='stylesheet' type='text/css'>
+
+		<style type="text/css">
+		*	{
+			outline: 0px dotted red; 
+		}
+		body	{
+  			width: 1000px;
+  			margin: 0 auto;
+  			padding: 0;
+  			font-family: 'Economica';
+  			font-size: large;
+  		}
+		#logo	{
+  			width: 100%;
+  			height: 100px;
+  			background-color: blue;
+  		}
+		#menuBar	{
+  			width: 100%;
+  			height: 1.5em;
+  			padding: 0.5em 0;
+  			position: relative;
+  			background-color: lightgray;
+  			vertical-align: middle;
+  		}
+		#menu	{
+   			margin: 0;
+  			padding: 0;
+  			display: inline;
+  		}
+		#menu ul {
+			display: none;
+  		}
+  		#menu li {
+  			padding: 0 0.5em;
+  			list-style: none;
+  		}
+  		#menu > li {
+  			display: inline;
+  			position: relative;
+  		}
+  		#menu li:hover > ul {
+ 			display: block;
+  			padding: 0;
+ 			position: absolute;
+  			left: 0;
+  			top: 100%;
+  			white-space: nowrap;
+  		}
+		a.menuItem	{
+  			text-decoration: none;
+  			color: black;		  			
+  		}
+		a:hover.menuItem	{
+  			color: red;
+  		}
+		#loginForm	{
+  			position: absolute;
+  			top: 0.5em;
+  			right: 0;
+  		}
+		.loginEdit	{
+  			width: 8em;
+  			margin-right: 0.5em;
+  		}
+		#loginForm input[type='submit'] {
+			padding: 0.1em 0.5em;
+		}
+		#context	{	
+  			overflow: auto;
+  			background-color: lightyellow;
+  		}
+		#leftSidebar	{
+  			width: 200px;
+  			margin: 0;
+  			padding: 0;
+  			float: left;
+  			background-color: lightgreen;
+  		}
+		#leftSidebar ul	{
+  			margin-top: 0.5em;
+  		}
+		#leftSidebar li	{
+	  		list-style: none;
+	  	}
+		#content	{
+  			float: left;
+  			background-color: lightblue;
+  		}
+		</style>
+		<script type="text/javascript">
+		<!--
+			$(document).ready( function() {
+				$("input:submit").button().css("font-family", "Economica").css("font-size", "large");
+			});
+		//-->
+		</script>
+	</head>
+	<body>
+
+		<div id="logo"></div>
+
+		<div id="menuBar">
+			<ul id="menu">
+				<li><a class="menuItem" href="#">Our Products</a>
+					<ul class="submenu">
+						<li><a class="menuItem" href="#">Product A</a></li>
+						<li><a class="menuItem" href="#">Product B</a></li>
+						<li><a class="menuItem" href="#">Product C</a></li>
+						<li><a class="menuItem" href="#">Product D</a></li>
+					</ul>
+				</li>
+				<li><a class="menuItem" href="#">Our Services</a>
+					<ul class="submenu">
+						<li><a class="menuItem" href="#">Service A</a></li>
+						<li><a class="menuItem" href="#">Service B</a></li>
+						<li><a class="menuItem" href="#">Service C</a></li>
+					</ul>
+				</li>
+				<li><a class="menuItem" href="#">About Us</a></li>
+				<li><a class="menuItem" href="#">Contact Us</a></li>
+			</ul>
+			<form id="loginForm" action="#" method="GET">
+				<label>Login: <input type="text" class="loginEdit" placeholder="user name" /></label>
+				<input type="password" class="loginEdit" placeholder="password" />
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+
+		<div id="context">
+			<div id="leftSidebar">
+				<div id="navPanel">
+					<b>Navigation</b>
+					<ul>
+						<li><a class="menuItem" href="#">Our Products</a>
+							<ul>
+								<li><a class="menuItem" href="#">Product A</a></li>
+								<li><a class="menuItem" href="#">Product B</a></li>
+								<li><a class="menuItem" href="#">Product C</a></li>
+								<li><a class="menuItem" href="#">Product D</a></li>
+							</ul>
+						</li>
+						<li><a class="menuItem" href="#">Our Services</a>
+							<ul>
+								<li><a class="menuItem" href="#">Service A</a></li>
+								<li><a class="menuItem" href="#">Service B</a></li>
+								<li><a class="menuItem" href="#">Service C</a></li>
+							</ul>
+						</li>
+						<li><a class="menuItem" href="#">About Us</a></li>
+						<li><a class="menuItem" href="#">Contact Us</a></li>
+					</ul>
+				</div>
+				<div id="linkPanel">
+					<b>Related links</b>
+					<ul>
+						<li><a class="menuItem" href="#">Link to site 1</a></li>
+						<li><a class="menuItem" href="#">Link to site 2</a></li>
+						<li><a class="menuItem" href="#">Link to site 3</a></li>
+						<li><a class="menuItem" href="#">Link to site 4</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="content">
+				<pre>
+壞事勸人休莫作。舉頭三尺有神明。善惡到頭終有報。只爭來早與來遲。
+一年之計在於春。一日之計在於寅。一家之計在於和。一生之計在於勤。
+父子和而家不退。兄弟和而家不分。有子之人貧不久。無子之人富不長。
+萬事不由人計較。一身都是命安排。命理有時終須有。命理無時到底無。
+貧乏求謀事難成。百計徒勞枉費心。屋漏更遭連夜雨。行船又被對頭風。
+有緣千里能相會。無緣對面不相逢。貧居鬧市無人識。富在深山有遠親。
+龍游淺水遭蝦戲。虎落平洋被犬欺。黃河尚有澄清日。豈可人無得運時。
+在家不會迎賓客。出路方知少主人。相逢不飲空歸去。洞口桃花也笑人。
+有錢有酒多兄弟。急難何曾見一人。人情似紙張張薄。世事如棋局局新。
+有意摘花花不發。無心插柳柳成蔭。畫虎畫皮難畫骨。知人知面不知心。
+相逢好似曾相識。到底終無怨恨心。逢人且說三分話。未可全拋一片心。
+錦上添花人人有。雪中送炭世間無。不信但看筵中酒。杯杯先勸有錢人。
+求人須求大丈夫。濟人須濟急時無。渴時一點如甘露。醉後添杯不如無。
+山中也有千年樹。世上難逢百歲人。世上若要人情好。賒去物件莫取錢。
+平生莫作皺眉事。世上應無切齒人。是非只為多開口。煩惱皆因強出頭。
+枯木逢春猶再發。人無兩度再年少。百世修來同船渡。千世修來共枕眠。
+父母恩深終須別。夫妻義重也分離。人生似鳥同林宿。大限來時各自飛。
+櫻花猶怕春光老。豈可教人枉度春。紅粉佳人休便老。風流才子莫教貧。
+大扺選他飢骨好。不搽紅粉也風流。牡丹花好空入目。棗花雖小結實成。
+近水樓台先得月。向陽花木早逢春。古人不見今時月。今月曾經照古人。
+馬行無力皆因瘦。人不風流只為貧。誰人背後無人說。那個人前不說人。
+易漲易退山溪水。易反易覆小人心。長江後浪催前浪。世上新人趲舊人。
+笋因落籜方成竹。魚為奔波始化龍。記得少年騎竹馬。看看又是白頭翁。
+月過十五光明少。人到中年萬事休。兒孫自有兒孫福。莫把兒孫做牛馬。
+乍富不知新受用。乍貧難改舊家風。知音說與知音聽。不是知音莫與談。
+不孝父母。敬神無益。兄弟不和。交友無益。貪淫好賭。勤儉無益。不惜元氣。服藥無益。
+欠債怨財主。不孝怨父母。兒不嫌母醜。犬不厭家貧。
+姜女送寒衣。沿路苦風霜。丁蘭孝父母。刻木為爹娘。
+大家都是命。半點不由人。山中有直樹。世上無直人。
+相識滿天下。知心能幾人。莫信直中直。須防仁不仁。
+海枯終見底。人死不知心。藥能醫假病。酒不解真愁。
+點石化為金。人心猶未足。求財恨不多。財多害人己。
+近水知魚性。近山識鳥音。路遙知馬力。事久見人心。
+兩人一般心。有錢堪買金。一人一般心。無錢堪買針。
+有錢道真語。無錢語不真。錢財如糞土。仁義值千金。
+力微休負重。言輕莫勸人。無錢休入眾。遭難莫尋親。
+人老心未老。人窮志不窮。人無千日好。花無百日紅。
+明知山有虎。莫向虎山行。若要斷酒法。醒眼看醉人。
+莫道君行早。更有早行人。酒逢知己飲。詩向會人吟。
+虎生猶可近。人熟不堪親。來說是非者。便是是非人。
+人不勸不善。鐘不打不鳴。路不行不到。事不為不成。
+客來主不顧。應恐是癡人。賢婦令夫貴。惡婦令夫敗。
+小時是兄弟。長大各鄉里。妒財莫妒食。怨生莫怨死。
+人善被人欺。馬善被人騎。兄弟是兄弟。過江須用錢。
+富人思來年。貧人思眼前。夫妻相好合。琴瑟與笙簧。
+國亂思良將。家貧思賢妻。家中無才子。官從何處來。
+相見易得好。久住難為人。庭前生瑞草。好事不如無。
+寧向直中取。不可曲中求。欲求生富貴。須下死功夫。
+人不通古今。馬牛如襟裾。同君一夜話。勝讀十年書。
+結交須勝己。似我不如無。但看三五日。相見不如初。
+讀書須用意。一字值千金。運去金成鐵。時來鐵成金。
+自恨枝無葉。莫怨太陽偏。久住令人賤。貧來親也疏。
+美化不足。惡化有餘。為善最樂。為惡難逃。善事可作。惡事莫為。
+順天者存。逆天者亡。善有善報。惡有惡報。不是不報。日子未到。
+得忍且忍。得耐且耐。不忍不耐。小事成大。人為財死。鳥為食亡。
+人殺一萬。自損三千。人生一世。草木一春。兄弟相害。不如不生。
+龍生龍子。虎生豹兒。人貧不語。水平不流。出家如初。成佛有餘。
+在家由父。出嫁從夫。一日夫妻。百世姻緣。養兒待老。積穀防饑。
+養子不教。不如養驢。養女不教。不如養豬。先到為君。後到為臣。
+養君千日。用在一朝。官有正條。民有私約。天眼恢恢。報應甚速。
+人心似鐵。官法如爐。成事莫說。覆水難收。一言既出。駟馬難追。
+一言不中。千言無用。黃金無假。阿魏無真。癡人畏婦。賢女敬夫。
+寧可負我。切莫負人。人貧志短。馬瘦毛長。死生由命。富貴在天。
+長安雖樂。不是久居。賊是小人。智過君子。人相面形。馬相毛色。
+合理可作。小利莫爭。君子愛財。取之有道。小人愛財。不顧體面。
+人死留名。虎死留皮。鬧裏有錢。靜處安身。來如風雨。去似微塵。
+家用長子。國用大臣。山高水深。地瘦人貧。積善之家。必有餘慶。
+不善之家。必有餘殃。奉勸君子。各宜守己。只此呈示。萬無一失。
+					</pre>
+				</div>
+			</div>
+	</body>
+</html>

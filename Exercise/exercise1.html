@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My First Exercise on HTML</title>
+<script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery-ui.custom.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+<style rel="stylesheet" type="text/css">
+	body { 
+  		margin:0; padding:0; 
+		background-color:#7BB;
+		font-family: 'Calibri', san-serif;
+	}
+	#headline { 
+  		font-size:150%; 
+  		text-align:center;
+  	}
+	#headline h1 { 
+		color: yellow; 
+	}
+	#description { 
+		width : 80%; 
+		margin-left:auto; 
+		margin-right:auto; 
+		padding:0.1em 0.5em 0.1em 0.5em; 
+		background-color: #EEC; 
+	}
+	#navbar { 
+		font-size: 90%; 
+		text-align: center; 
+		margin: 1em 0 1em 0; 
+		background-color: #055; 
+	}
+	#navbar li { text-align: center; 
+		display: inline; 
+		margin: 1em; 
+		padding: 0 0 0 2em;	
+		border-left: 1px solid white;
+		color: #CCC;
+	}
+	#navbar li:first-child { 
+		border-left: none;
+	}
+	#navbar a:link, #navbar a:visited { 
+		text-decoration: none; 
+		color: white 
+	}
+	#navbar a:hover { 
+		color: yellow 
+	}
+	#main { 
+		padding: 0 2em 2em 20em 
+	}
+	#contents { 
+		line-height: 1.5em; 
+		float: left; 
+		padding: 1em; 
+		background-color: #ADD 
+	}
+	#jobs { 
+		line-height: 1.5; 
+		position: absolute;
+		left: 1em;
+		width:18em; 
+		border: 1px dotted gray; 
+		background-color: #DFF 
+	}
+	#jobs h2 { 
+		margin: 0; 
+		padding: 0.2em; 
+		background-color: #055; 
+		color: white 
+	}
+	#jobs ul { 
+		list-style-type: none; 
+		margin: 0; 
+		padding: 0.5em 
+	}
+	#table1 { 
+		border: 1px solid black; 
+		border-collapse: collapse; 
+		width: 50%; 
+		height: 50px; 
+		background-color: lightyellow 
+	}
+	#table1 td.hover { 
+		background-color: yellow 
+	}
+	#table2 {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	#table2 * {
+		border: 1px solid black;
+	}
+	#jobs a:link, #jobs a:visited { 
+		color: black; 
+		text-decoration: none 
+	}
+	#jobs a:hover { 
+		color: blue 
+	}
+	#footer { 
+		clear: both 
+	}
+	#table1 td { 
+		border: 1px dotted gray;
+		padding: 5px 
+	}
+	#table1 th { 
+		border: 1px solid black;
+		padding: 5px 
+	}  
+	#table1 thead { 
+  		color: blue 
+	}
+	#table1 tbody { 
+  		text-align: center 
+	}
+	#table1 tfoot { 
+		color: red 
+	}
+	a:hover {
+		color: red;
+		cursor: pointer;
+	}
+	#dialogContainer {
+		display: none;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	#jobDialog {
+		width: 50em;
+		height: 30em;
+		position: relative;
+		top: 50%;
+		margin: -15em auto 0;
+		padding: 1em;
+		border: 3px solid black;
+		overflow: auto;
+		background: #FFF;
+		font-family: "Arial", san-serif;
+		font-size: 10pt;
+	}
+	td.col1 {
+		width: 11em;
+		vertical-align: top;
+		font-weight: bold;
+	}
+	td.col2 {
+		width: 20em;
+	}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+
+	$( 
+		function() {
+			showCurrentTime();
+
+			$("#openDialog").click( function(e) {
+				e.preventDefault();
+				$("#dialogContainer").fadeIn("fast");
+				$("#jobDialog").focus();
+			});
+			$("#dialogContainer").click( function(e) {
+				$("#dialogContainer").fadeOut("fast");
+			});
+			$("#jobDialog").click( function(e) {
+				e.stopPropagation();
+			})
+
+			$("#navbar a").click( 
+				function(event) {
+					$(this).css("visibility", "hidden");
+					event.preventDefault();
+				}
+			); // #navbar a
+			
+			$("table td").mouseenter( 
+				function() {
+					$(this).addClass("hover");
+				}
+			); // table td
+
+			$("table td").mouseleave( 
+				function() {
+					$(this).removeClass("hover");
+				}
+			); // table td
+
+			$("#contents a").click(
+				function(event) {
+					event.preventDefault();
+					$("#contents ul").append("<li>Click to remove</li>");
+				}
+			); // #addDefinition
+
+			$("#contents li").live('click', 
+				function() {
+					$(this).remove();
+				}
+			);
+			
+			$("#table1 td, #table1 th").mouseenter(
+				function() {
+					$("#table1Desc").empty().append($(this).text());
+				}
+			); // #table1 td
+
+			$("#table1 td, #table1 th").mouseleave(
+				function() {
+					$("#table1Desc").empty().append("<br />");
+				}
+			);
+
+			$("#footer").append("Your browser: "+navigator.appName+" / "+navigator.appVersion);
+		} // function()
+	); // $()
+	
+	function showCurrentTime() {
+		var currentTime = new Date();
+		var hh = currentTime.getHours(), 
+				mm = currentTime.getMinutes(),
+				ss = currentTime.getSeconds();
+		var timeString = (hh<10 ? "0": "") + hh + ":" + 
+											(mm<10 ? "0": "") + mm + ":" + 
+											(ss<10 ? "0": "") + ss;
+		$("#clock").text(timeString);
+		setTimeout("showCurrentTime()", 200);
+	}
+</script>
+
+</head>
+
+<body>
+<div id="headline">
+	<h1>Top Stories</h1>
+	<h2 id="clock">00:00:00</h2>
+</div>
+
+<div id="description">
+<h2>Check out the Rovi Product Education Series</h2>
+<p>Learn about our major products and what we bring to market. 
+Attend the live presentations or view the recordings and decks on the intranet later. 
+Please note: These are for INTERNAL USE ONLY!
+</p>
+</div>
+
+<div id="navbar">
+<ol>
+<li><a>Ask HR</a></li>
+<li><a>Ask Any Executive</a></li>
+<li><a>Improvement Ideas</a></li>
+</ol>
+</div>
+
+<div id="main">
+<div id="contents">
+	<a id="openDialog">Press here to open a dialog box</a>
+	<br /><br />
+	<a>Click to add a row</a>
+	<ul>
+	</ul>
+
+	<table id="table1">
+		<colgroup span="1" width="40%" style="border: 1px solid black; background-color: lightgreen">
+		</colgroup>
+		<colgroup span="3" width="20%">
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>Fruit</th>
+				<th>Apple</th>
+				<th>Orange</th>
+				<th>Lemon</th>
+			</tr>
+		</thead>
+		<tfoot>
+		<tr>
+			<th>Fruit</th>
+			<th>Apple</th>
+			<th>Orange</th>
+			<th>Lemon</th>
+		</tr>
+		</tfoot>
+
+		<tbody>
+		<tr>
+			<td>Vitamin C</td>
+			<td>500</td>
+			<td>1000</td>
+			<td>2000</td>
+		</tr>
+		<tr>
+			<td>Fiber</td>
+			<td>1000</td>
+			<td>10000</td>
+			<td>20000</td>
+		</tr>
+		<tr>
+			<td>Water</td>
+			<td>100</td>
+			<td>10000</td>
+			<td>15000</td>
+		</tr>
+		</tbody>
+	</table>
+	<p id="table1Desc"><br /></p>
+	<br />
+
+	<table id="table2">
+		<tr>
+			<th rowspan="2" colspan="2" />
+			<th colspan="2">Handedness</th>
+		</tr>
+
+		<tr>
+			<th>Right</th>
+			<th>Left</th>
+		</tr>
+
+		<tr>
+			<th rowspan="2">Gender</th>
+			<th>Male</th>
+			<td>96</td>
+			<td>4</td>
+		</tr>
+
+		<tr>
+			<th>Female</th>
+			<td>80</td>
+			<td>14</td>
+		</tr>
+	</table>
+	<br />
+
+	<div class="videos">
+		<p>Object from Youtube</p>
+		<object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/C9PA1xJOsYA?version=3&feature=player_detailpage"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/C9PA1xJOsYA?version=3&feature=player_detailpage" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="360"></object>
+	</div>
+
+	<div class="videos">
+		<p>iframe from Youtube</p>
+		<iframe width="560" height="315" src="http://www.youtube.com/embed/WHv4hBdwB4Q" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<div class="videos">
+		Embedding video (MP4)<br/>
+		<video width="500" height="300" controls>
+			<source src="test.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+		</video>
+	</div>
+
+	<div class="videos">
+		Embedding audio<br/>
+		<audio src="kiss_because_im_a_girl.mp3" controls />
+	</div>
+
+</div> <!-- contents -->
+
+<div id="jobs">
+	<h2>Jobs at Rovi</h2>
+	<ul>
+		<li><a href="">Employee Referral Incentive Program</a></li>
+		<li><a href="">Job Listings</a></li>
+		<li><a href="">Employee Referral Incentive Program</a></li>
+		<li><a href="">Job Listings</a></li>
+		<li><a href="">Employee Referral Incentive Program</a></li>
+		<li><a href="">Job Listings</a></li>
+		<li><a href="">Employee Referral Incentive Program</a></li>
+		<li><a href="">Job Listings</a></li>
+	</ul>
+</div> <!-- jobs -->
+</div> <!-- main -->
+
+
+<div id="footer">
+</div>
+
+<div id="dialogContainer">
+<div id="jobDialog">
+
+	<p>Programme / Project Managers</p>
+	<p>Company Name: CATHAY PACIFIC AIRWAYS LTD.</p>
+	 
+
+	<p>CAREERS ON THE GROUND</p>
+
+	<p>There's a new destination for Hong Kong's leading IT professionals</p>
+
+	<p>At Cathay Pacific, we're launching a new vision for our IT team. We're embarking on a new era of technological delivery as we continue to create one of the world's leading airlines. We're looking for the brightest minds in Hong Kong to join us and there's never been a better time to get on board.</p>
+
+	<p>Join us, and you'll work with a broad range of passionate IT professionals. We're focused on delivering a customer experience that is second-to-none through innovative technology solutions. With a wide variety of projects underway and in the pipeline, the possibilities to shape our future, and, yours are endless. With a career at Cathay Pacific, you can let your passion fly.</p>
+
+	<p>We are now hiring for the following exciting position(s):</p>
+
+	<p>Programme / Project Managers</p>
+
+
+
+	<p>For more information and to apply for these roles and ongoing opportunities, visit www.cathaypacific.com/careers</p>
+
+	<p>Let your passion fly</p>
+
+	<p>Cathay Pacific is an Equal Opportunities Employer. Personal data provided by job applicants will be used strictly in accordance with our personal data policy and for recruitment purposes only. Candidates not notified within eight weeks may consider their application unsuccessful. All related information will be kept in our file for up to 24 months. A copy of our Personal Information Collection Statement will be provided upon request by contacting our Data Protection Officer.</p>
+	<p>Job Requirements</p>
+
+	<table>
+		<tr>
+			<td class="col1">
+				Area of Work	 
+			</td>
+			<td class="col2">
+				Information Technology (IT Management)
+				Management (General Management)
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Job Level	 
+			</td>
+			<td class="col2">
+				Not Specified
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Location	 
+			</td>
+			<td class="col2">
+				Within Hong Kong
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Experience Required	 
+			</td>
+			<td class="col2">
+				Minimum N/A
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Industry	 
+			</td>
+			<td class="col2">
+				Mass Transportation / Airlines
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Job Type	
+			</td>
+			<td class="col2">
+				Full Time
+			</td>
+		</tr>
+		<tr>
+			<td class="col1">
+				Published On	 
+			</td>
+			<td class="col2">
+				13/04/2013
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+#divLeftPanel
+	{background-color:lightblue; width:150px; margin:10px; padding:10px}
+#divContext
+	{background-color: lightyellow; border:1px solid black; position:relative; left:0px; top:0px; margin:0px; padding:0px}
+#divLeftPanel li
+  {list-style:none}
+#divLeftPanel a
+	{color:black; text-decoration:none}
+#divLeftPanel a:hover
+	{color:red}
+#formAdd input
+	{position:absolute; left:100px}
+#formAdd input[type='text']
+	{width:500px}
+#divBrowse table
+	{border:2px black solid; border-collapse:collapse}
+#divBrowse table td, #divBrowse table th
+	{border:1px black solid; padding:5px 10px}

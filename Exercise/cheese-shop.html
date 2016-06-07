@@ -1,0 +1,236 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="lib/jquery-ui.custom.js"></script>
+	<script type="text/javascript" src="lib/knockout.js"></script>
+	<style type="text/css">
+		*
+			{
+				outline: 0px dotted red;
+			}
+		body
+			{
+				margin: 0;
+				padding: 0 10px;
+				width: 710px;
+				background-color: rgb(0,0,0);
+				font-family: Arial;
+			}
+		.tile
+			{
+				width: 350px;
+				margin-bottom: 10px;
+				background-color: rgb(150,150,150);
+				border-radius: 8px;
+				-webkit-border-radius: 8px;
+				-moz-border-radius: 8px;
+			}
+		.tileTitle
+			{
+				padding: 8px 15px;
+				color: white;
+				background-color: rgb(250,150,70);
+				vertical-align: middle;
+				border-radius: 8px 8px 0 0;
+				-webkit-border-radius: 8px 8px 0 0;
+				-moz-border-radius: 8px 8px 0 0;
+			}
+		.tileContent
+			{
+				overflow: auto;
+				width: 100%;
+				padding: 8px 0px;
+				color: rgb(230,230,230);
+			}
+		.tileContent label
+			{
+				display: block;
+				float: left;
+				width: 12em;
+				margin-right: 1em;
+				text-align: right;
+			}
+		.tileContent input
+			{
+				display: block;
+				float: left;
+				width: 3em;
+				margin-right: 2em;
+			}
+		#basket
+			{
+				float: right;
+			}
+		#basket table
+			{
+				color: rgb(230,230,230);
+			}
+		#basket thead
+			{
+				color: white;
+			}
+		.column1
+			{
+				width: 10em;
+				text-align: left;
+			}
+		.column2
+			{
+				width: 5em;
+				text-align: right;
+			}
+		.column3
+			{
+				padding-left: 0.5em;
+			}
+		.separateLine
+			{
+				width: 100%;
+				height: 0;
+				margin: 0 auto;
+				border: 1px solid rgb(250,150,70);
+			}
+		#basketMessage
+			{
+				width: 100%;
+				text-align: center;
+			}
+		#basketButtons
+			{
+				text-align: center;
+				margin: 1em 0 2em;
+			}
+	</style>
+	<script type="text/javascript">
+	<!--
+		var dataModel = {
+			products: [
+				{
+					category: "British Cheese",
+					items: [
+						{id: "stilton", name: "Stilton", price: 9},
+						{id: "stinkingbishop", name: "Stinking Bishop", price: 17},
+						{id: "cheddar", name: "Cheddar", price: 17}
+					]
+				},
+				{
+					category: "French Cheese",
+					items: [
+						{id: "camembert", name: "Camembert", price: 18},
+						{id: "tomme", name: "Tomme de Savoie", price: 19},
+						{id: "morbier", name: "Morbier", price: 9}
+					]
+				},
+				{
+					category: "Italian Cheese",
+					items: [
+						{id: "gorgonzola", name: "Gorgonzola", price: 8},
+						{id: "fontina", name: "Fontina", price: 11},
+						{id: "parmesan", name: "Parmesan", price: 16}
+					]
+				}
+			]
+		};
+
+		function iterateDataItems(func) {
+			$.each(dataModel.products, function(productIndex, product) {
+				$.each(product.items, function(itemIndex, item) {
+					func(item);
+				})
+			})
+		}
+
+		$(document).ready( function() {
+			iterateDataItems( function(item) {
+				item.quantity = ko.observable(0);
+				item.subtotal = ko.computed( function() {
+					return this.quantity() * this.price;
+				}, item);
+			});
+
+			dataModel.total = ko.computed( function() {
+				var total=0;
+				iterateDataItems( function(item) {
+					total += item.subtotal();
+				});
+				return total;
+			});
+
+			ko.applyBindings(dataModel);
+
+			$("#basketButtons").buttonset().css("font-size", "small")
+			$("#basketButtons input").click( function() {
+				if (this.type=="reset") {
+					iterateDataItems( function(item) {
+						item.quantity(0);
+					});
+				}
+			});
+			$("#basket table a").button({icons: {primary: "ui-icon-closethick"}, text: false}).click( function(e) {
+				var targetId = $(this).attr("data");
+				iterateDataItems( function(item) {
+					if (item.id == targetId) {
+						item.quantity(0);
+					}
+				});
+				e.preventDefault();
+			});
+		});
+	//-->
+	</script>
+
+	<script id="writeTile" type="text/html">
+		<div class="tile">
+			<div class="tileTitle" data-bind="text: category"></div>
+
+			<div data-bind="foreach: items">
+				<div class="tileContent">
+					<label data-bind="attr: {for: id}">
+						<span data-bind="text: name"></span> $<span data-bind="text: price"></span>@
+					</label>
+					<input data-bind="attr: {name: id}, value: quantity" type="text" value="0" />
+					<span data-bind="visible: subtotal">($<span data-bind="text: subtotal"></span>)</span>
+				</div>
+			</div>
+		</div>
+	</script>
+</head>
+
+<body>
+	<div id="headline">Welcome to Our Store</div>
+
+	<div id="basket" class="tile">
+		<div class="tileTitle">My Basket</div>
+		<div class="tileContent">
+			<div id="basketMessage" data-bind="ifnot: total">The basket is empty</div>
+			<table data-bind="visible: total">
+				<thead>
+					<tr><th class="column1">Cheese</th><th class="column2">Subtotal</th><td></td></tr>
+				</thead>
+				<tbody data-bind="foreach: products">
+					<!-- ko foreach: items -->
+						<tr data-bind="visible: quantity">
+							<td data-bind="text: name" class="column1"></td>
+							<td class="column2">$<span data-bind="text: subtotal"></span></td>
+							<td class="column3"><a data-bind="attr: {data: id}"></a></td>
+						</tr>
+					<!-- /ko -->
+				</tbody>
+				<tfoot>
+					<tr><td colspan="2"><div class="separateLine"></div></td></tr>
+					<tr><th class="column1">Total:</th><td class="column2">$<span data-bind="text: total"></span></td></tr>
+				</tfoot>
+			</table>
+		</div>
+		<div id="basketButtons">
+			<input type="submit" value="Submit Orders" />
+			<input type="reset" value="Reset" />
+		</div>
+	</div>
+
+	<div data-bind="template: {name: 'writeTile', foreach: products}">
+	</div>
+
+</body>
+</html>

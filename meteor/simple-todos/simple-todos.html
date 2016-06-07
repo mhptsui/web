@@ -1,0 +1,21 @@
+<head>
+  <title>simple-todos</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome to Simple To-dos</h1>
+
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+<template name="task">
+  <li>
+    {{text}}
+  </li>
+</template>
